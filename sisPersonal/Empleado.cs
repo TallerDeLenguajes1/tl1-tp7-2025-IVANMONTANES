@@ -14,23 +14,23 @@ namespace EspacioEmpleado
         private string nombre;
         private string apellido;
         private DateTime fechaNac;
-        private string estadoCivil;
+        private char estadoCivil;
         private DateTime fechaIngreso;
         private double sueldoBasico;
         private Cargos cargo;
-    
+
         // propiedades //
-        public string Nombre { get => nombre; set => nombre =   value; }
-        public string Apellido { get => apellido; set => apellido   = value; }
-        public DateTime FechaNac { get => fechaNac; set =>  fechaNac = value; }
-        public string EstadoCivil { get => estadoCivil; set =>  estadoCivil = value; }
-        public DateTime FechaIngreso { get => fechaIngreso; set =>  fechaIngreso = value; }
-        public double SueldoBasico { get => sueldoBasico; set =>    sueldoBasico = value; }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Apellido { get => apellido; set => apellido = value; }
+        public DateTime FechaNac { get => fechaNac; set => fechaNac = value; }
+        public char EstadoCivil { get => estadoCivil; set => estadoCivil = value; }
+        public DateTime FechaIngreso { get => fechaIngreso; set => fechaIngreso = value; }
+        public double SueldoBasico { get => sueldoBasico; set => sueldoBasico = value; }
         public Cargos Cargo { get => cargo; set => cargo = value; }
-    
+
         // metodos //
         // constructor //
-        public Empleado(string nombre, string apellido, DateTime    fechaNac, string estadoCivil, DateTime fechaIngreso,   double sueldoBasico, Cargos cargo)
+        public Empleado(string nombre, string apellido, DateTime fechaNac, char estadoCivil, DateTime fechaIngreso, double sueldoBasico, Cargos cargo)
         {
             this.nombre = nombre;
             this.apellido = apellido;
@@ -40,8 +40,8 @@ namespace EspacioEmpleado
             this.sueldoBasico = sueldoBasico;
             this.cargo = cargo;
         }
-        // metodo privada para calcular la diferencia entre     fechas //
-        private int diferenciaFechas(DateTime fecha)
+        // metodo privado para calcular la diferencia entre    fechas //
+        private int DiferenciaFechas(DateTime fecha)
         {
             // calculamos la diferencia //
             DateTime fechaActual = DateTime.Now;
@@ -59,25 +59,61 @@ namespace EspacioEmpleado
             }
             return diferencia;
         }
-    
-        public int antiguedad()
+
+        public int Antiguedad()
         {
             // calculamos la antiguedad //
-            int antiguedad = diferenciaFechas(fechaIngreso);
+            int antiguedad = DiferenciaFechas(fechaIngreso);
             return antiguedad;
         }
-    
-        public int edad()
+
+        public int Edad()
         {
             // calculamos la edad //
-            int edad = diferenciaFechas(fechaNac);
+            int edad = DiferenciaFechas(fechaNac);
             return edad;
         }
-    
-        public int aniosParaJubilarse()
+
+        public int AniosParaJubilarse()
         {
-            int aniosRestantes = 65 - edad();
+            int aniosRestantes = 65 - Edad();
             return aniosRestantes;
+        }
+
+        // metodo para calcular el adicional //
+        private double CalcularAdicional()
+        {
+            double adicional = 0;
+            int antiguedad = Antiguedad();
+            // calculamos el aumento respecto de la antiguedad //
+            if (antiguedad >= 0 && antiguedad <= 20)
+            {
+                adicional += antiguedad * sueldoBasico / 100;
+            }
+            else if (antiguedad > 20)
+            {
+                adicional += 25 * sueldoBasico / 100;
+            }
+
+            // calculamos el aumento segun el cargo //
+            if (cargo == Cargos.Ingeniero || cargo == Cargos.Especialista)
+            {
+                adicional *= 1.5;
+            }
+
+            // calculamos el aumento segun si es casado o no //
+            if (estadoCivil == 'c' || EstadoCivil == 'C')
+            {
+                adicional += 150000;
+            }
+
+            return adicional;
+        }
+        public double Salario()
+        {
+            // calculamos el adicional //
+            double adicional = CalcularAdicional();
+            return adicional;
         }
     }
 }
