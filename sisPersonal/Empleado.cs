@@ -113,7 +113,34 @@ namespace EspacioEmpleado
         {
             // calculamos el adicional //
             double adicional = CalcularAdicional();
-            return adicional;
+            double salario = sueldoBasico + adicional;
+            return salario;
+        }
+
+        // metodo para mostrar los datos del empleado //
+        public void mostrarDatos()
+        {
+            Console.WriteLine("==================== EMPLEADO ===================");
+            Console.WriteLine($"Nombre: {nombre}");
+            Console.WriteLine($"Apellido: {apellido}");
+            Console.WriteLine($"Fecha de nacimiento: {fechaNac.Day}/{fechaNac.Month}/{fechaNac.Year}");
+            Console.WriteLine($"Edad: {Edad()} años");
+            Console.WriteLine($"Fecha de ingreso: {fechaIngreso.Day}/{fechaIngreso.Month}/{fechaIngreso.Year}");
+            Console.WriteLine($"Antiguedad: {Antiguedad()} años");
+            Console.WriteLine($"Se jubila en: {AniosParaJubilarse()} años");
+            Console.WriteLine($"Cargo: {cargo}");
+            Console.WriteLine($"Salario: {Salario()}$");
+            string estadoCivilString = string.Empty;
+            if (estadoCivil == 'c' || estadoCivil == 'C')
+            {
+                estadoCivilString = "Casado";
+            }
+            else if (estadoCivil == 's' || estadoCivil == 'S')
+            {
+                estadoCivilString = "Soltero";
+            }
+            Console.WriteLine($"Estado civil: {estadoCivilString}");
+            Console.WriteLine("=================================================");
         }
     }
 }
