@@ -1,50 +1,49 @@
-namespace EspacioCalculadora;
-
-public class Calculadora
-{
-    // estado //
-    // campos //
-    private double dato;
-
-    // propiedades //
-    public double Resultado
+namespace EspacioCalculadora{
+    public class Calculadora
     {
-        get => dato;
-    }
+        // estado //
+        // campos //
+        private double dato;
 
-    // comportamiento //
-    // metodos //
-    public void Sumar(double termino)
-    {
-        dato += termino;
-    }
-
-    public void Restar(double termino)
-    {
-        dato -= termino;
-    }
-
-    public void Multiplicar(double termino)
-    {
-        dato *= termino;
-    }
-
-    public void Dividir(double termino)
-    {
-        if (termino != 0)
+        // propiedades //
+        public double Resultado
         {
-            dato /= termino;
+            get => dato;
         }
-        else
+
+        // comportamiento //
+        // metodos //
+        public void Sumar(double termino)
         {
-            Console.WriteLine("no se puede dividir entre 0");
+            dato += termino;
+        }
+
+        public void Restar(double termino)
+        {
+            dato -= termino;
+        }
+
+        public void Multiplicar(double termino)
+        {
+            dato *= termino;
+        }
+
+        public void Dividir(double termino)
+        {
+            if (termino != 0)
+            {
+                dato /= termino;
+            }
+            else
+            {
+                Console.WriteLine("no se puede dividir entre 0");
+            }
+        }
+
+        public void Limpiar()
+        {
+            dato = 0;
         }
     }
-
-    public void Limpiar()
-    {
-        dato = 0;
-    }
-
-
 }
+
